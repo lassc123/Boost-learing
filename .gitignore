@@ -1,0 +1,54 @@
+# 编译生成的文件和目录 (这些会出现在每个子文件夹内)
+*/build/
+*/bin/
+*/lib/
+*/*.o
+*/*.obj
+*/*.exe
+*/*.dll
+*/*.so
+*/*.dylib
+*/*.a
+*/*.lib
+*/*.exp
+*/*.ilk
+*/*.pdb
+*/*.vcproj.user
+*/*.vcxproj.user
+*/*.sln.user
+*/*.suo
+*/*.user
+*/*.ncb
+*/*.aps
+*/*.bsc
+*/*.sbr
+*/*.tlog
+*/*.lastbuildstate
+*/*.idb
+*/*.ipch
+*/*.log
+
+# CMake 生成的文件和目录 (这些会出现在每个子文件夹内)
+*/CMakeCache.txt
+*/CMakeFiles/
+*/cmake_install.cmake
+*/Makefile
+*/CTestTestfile.cmake
+*/_CPack_Packages/
+*/DartConfiguration.tcl
+
+# CLion 特定文件和目录 (这些会出现在每个子文件夹内，或者顶层)
+.idea/ # CLion 顶层项目配置
+*/cmake-build-debug/
+*/cmake-build-release/
+*/cmake-build-*/ # 匹配所有 cmake-build-xxx 目录
+*/*.iml
+
+# macOS 特定文件
+.DS_Store
+
+# 临时文件和编辑器备份文件
+*~
+*.bak
+*.swp
+.#*
