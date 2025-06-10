@@ -38,7 +38,8 @@
 */DartConfiguration.tcl
 
 # CLion 特定文件和目录 (这些会出现在每个子文件夹内，或者顶层)
-.idea/ # CLion 顶层项目配置
+.idea/             # 忽略顶层的 .idea 目录 (如果CLion在顶层生成)
+*/.idea/           # <-- 新增：忽略所有子目录下的 .idea 目录
 */cmake-build-debug/
 */cmake-build-release/
 */cmake-build-*/ # 匹配所有 cmake-build-xxx 目录
