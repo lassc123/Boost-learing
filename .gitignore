@@ -1,55 +1,20 @@
-# 编译生成的文件和目录 (这些会出现在每个子文件夹内)
+# CLion IDE files for all subdirectories
+*/.idea/
+
+# CMake build directories for all subdirectories
+*/cmake-build-*/
 */build/
-*/bin/
-*/lib/
-*/*.o
-*/*.obj
+*/out/
+
+# Executables and libraries for all subdirectories
 */*.exe
 */*.dll
 */*.so
 */*.dylib
 */*.a
 */*.lib
-*/*.exp
-*/*.ilk
-*/*.pdb
-*/*.vcproj.user
-*/*.vcxproj.user
-*/*.sln.user
-*/*.suo
-*/*.user
-*/*.ncb
-*/*.aps
-*/*.bsc
-*/*.sbr
-*/*.tlog
-*/*.lastbuildstate
-*/*.idb
-*/*.ipch
-*/*.log
 
-# CMake 生成的文件和目录 (这些会出现在每个子文件夹内)
-*/CMakeCache.txt
-*/CMakeFiles/
-*/cmake_install.cmake
-*/Makefile
-*/CTestTestfile.cmake
-*/_CPack_Packages/
-*/DartConfiguration.tcl
+# Object files for all subdirectories
+*/*.o
+*/*.obj
 
-# CLion 特定文件和目录 (这些会出现在每个子文件夹内，或者顶层)
-.idea/             # 忽略顶层的 .idea 目录 (如果CLion在顶层生成)
-*/.idea/           # <-- 新增：忽略所有子目录下的 .idea 目录
-*/cmake-build-debug/
-*/cmake-build-release/
-*/cmake-build-*/ # 匹配所有 cmake-build-xxx 目录
-*/*.iml
-
-# macOS 特定文件
-.DS_Store
-
-# 临时文件和编辑器备份文件
-*~
-*.bak
-*.swp
-.#*
