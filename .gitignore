@@ -18,3 +18,5 @@
 */*.o
 */*.obj
 
+# macOS specific files
+.DS_Store

@@ -120,5 +120,5 @@ using namespace std;
 int main() {
     //转换为c结构的tm
     boost::gregorian::date date(2025,6,12);
-
+    std::cout << date << std::endl;
 }
