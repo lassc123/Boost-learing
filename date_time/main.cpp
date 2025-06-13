@@ -120,5 +120,19 @@ using namespace std;
 int main() {
     //转换为c结构的tm
     boost::gregorian::date date(2025,6,12);
-    std::cout << date << std::endl;
+    // std::cout << date << std::endl;
+    //to_tm(date):将date转换到tm。将tm的时分秒均置为0，夏令时标志tm_isdst置为-1（表示未知）
+    // datetm.tm_year = ymd.year - 1900;
+    // datetm.tm_mon = ymd.month - 1;
+    // datetm.tm_mday = ymd.day;
+    tm t = to_tm(date);
+    assert(t.tm_hour == 0 && t.tm_min == 0 && t.tm_sec == 0);
+    std::cout << t.tm_year << std::endl;
+    std::cout << t.tm_mon << std::endl;
+    std::cout << t.tm_mday << std::endl;
+    assert(t.tm_mon == 5 && t.tm_mday == 12 && t.tm_year == 125);
+
+    //date_from_tm(datetm)：将tm转换到date，只使用年月日三个成员
+    boost::gregorian::date d2 = boost::gregorian::date_from_tm(t);
+    assert(date == d2);
 }
