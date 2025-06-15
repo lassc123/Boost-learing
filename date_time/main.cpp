@@ -216,46 +216,64 @@ using namespace std;
     // assert(d.day() == 31); //与原来的日期不一致
 //}
 
+//int main() {
+    // boost::gregorian::date_period dp1(boost::gregorian::date(2017,1,1),boost::gregorian::days(20));
+    //
+    // assert(!dp1.is_null());
+    // assert(dp1.length().days() == 20);
+    // assert(dp1.begin().day() == 1);
+    // assert(dp1.last().day() == 20);
+    // assert(dp1.end().day() == 21);
+    //
+    // std::cout << dp1 << std::endl;
+    //
+    // //shift()将日期区间平移n天，而长度不变
+    // dp1.shift(boost::gregorian::days(3));
+    // std::cout << dp1 << std::endl;
+    //
+    // //expand（）将日期向两端延伸n天，相当于区间长度增加2n天
+    // dp1.expand(boost::gregorian::days(3));
+    // std::cout << dp1 << std::endl;
+
+    // boost::gregorian::date_period dp(boost::gregorian::date(2010,1,1),boost::gregorian::days(20)); //1-1至1-20
+    //
+    // assert(dp.is_after((boost::gregorian::date(2009,12,1))));
+    // assert(dp.is_before((boost::gregorian::date(2010,12,1))));
+    // assert(dp.contains((boost::gregorian::date(2010,1,10))));
+    //
+    // boost::gregorian::date_period dp2(boost::gregorian::date(2010,1,5),boost::gregorian::days(10)); //1-5至1-15
+    //
+    // assert(dp.contains(dp2));
+    //
+    // assert(dp.intersects(dp2));
+    // assert(dp.intersection(dp2) == dp2);
+    //
+    // boost::gregorian::date_period dp3(boost::gregorian::date(2010,1,21),boost::gregorian::days(5)); //1-21至1-26
+    // assert(!dp3.intersects(dp2));
+    // assert(dp.intersection(dp3).is_null());
+    //
+    // assert(dp.is_adjacent(dp3)); //表两个时段是否相切
+    // assert(!dp.intersects(dp3));
+
+    // merge()：返回两个日期区间的并集，如果日期区间无交集或不相邻，则返回无效区间
+    // span()：合并两个日期区间及其两者间的间隔，相当于广义的merge()
+    //  boost::gregorian::date_period dp1(boost::gregorian::date(2010,1,1),boost::gregorian::days(20));
+    //  boost::gregorian::date_period dp2(boost::gregorian::date(2010,1,5),boost::gregorian::days(10));
+    //  boost::gregorian::date_period dp3(boost::gregorian::date(2010,2,1),boost::gregorian::days(5));
+    //
+    //  boost::gregorian::date_period dp4(boost::gregorian::date(2010,1,15),boost::gregorian::days(10));
+    //
+    //  assert(dp1.contains(dp2) && dp1.merge(dp2) == dp1);
+    //  assert(!dp1.intersects(dp3) && dp1.merge(dp3).is_null());
+    //  assert(dp1.intersects(dp2) && dp1.merge(dp4).end() == dp4.end());
+    //  assert(dp1.span(dp3).end()==dp3.end());
+//}
+
+
+//日期迭代器
 int main() {
-    boost::gregorian::date_period dp1(boost::gregorian::date(2017,1,1),boost::gregorian::days(20));
-
-    assert(!dp1.is_null());
-    assert(dp1.length().days() == 20);
-    assert(dp1.begin().day() == 1);
-    assert(dp1.last().day() == 20);
-    assert(dp1.end().day() == 21);
-
-    std::cout << dp1 << std::endl;
-
-    //shift()将日期区间平移n天，而长度不变
-    dp1.shift(boost::gregorian::days(3));
-    std::cout << dp1 << std::endl;
-
-    //expand（）将日期向两端延伸n天，相当于区间长度增加2n天
-    dp1.expand(boost::gregorian::days(3));
-    std::cout << dp1 << std::endl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
-
-
-
 
 
 
