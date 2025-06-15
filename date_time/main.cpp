@@ -117,22 +117,148 @@ using namespace std;
     // std::cin>>date;
     // std::cout<<date<<std::endl;
 //}
-int main() {
-    //转换为c结构的tm
-    boost::gregorian::date date(2025,6,12);
-    // std::cout << date << std::endl;
-    //to_tm(date):将date转换到tm。将tm的时分秒均置为0，夏令时标志tm_isdst置为-1（表示未知）
-    // datetm.tm_year = ymd.year - 1900;
-    // datetm.tm_mon = ymd.month - 1;
-    // datetm.tm_mday = ymd.day;
-    tm t = to_tm(date);
-    assert(t.tm_hour == 0 && t.tm_min == 0 && t.tm_sec == 0);
-    std::cout << t.tm_year << std::endl;
-    std::cout << t.tm_mon << std::endl;
-    std::cout << t.tm_mday << std::endl;
-    assert(t.tm_mon == 5 && t.tm_mday == 12 && t.tm_year == 125);
+// int main() {
+//     //转换为c结构的tm
+//     boost::gregorian::date date(2025,6,12);
+//     // std::cout << date << std::endl;
+//     //to_tm(date):将date转换到tm。将tm的时分秒均置为0，夏令时标志tm_isdst置为-1（表示未知）
+//     // datetm.tm_year = ymd.year - 1900;
+//     // datetm.tm_mon = ymd.month - 1;
+//     // datetm.tm_mday = ymd.day;
+//     tm t = to_tm(date);
+//     assert(t.tm_hour == 0 && t.tm_min == 0 && t.tm_sec == 0);
+//     std::cout << t.tm_year << std::endl;
+//     std::cout << t.tm_mon << std::endl;
+//     std::cout << t.tm_mday << std::endl;
+//     assert(t.tm_mon == 5 && t.tm_mday == 12 && t.tm_year == 125);
+//
+//     //date_from_tm(datetm)：将tm转换到date，只使用年月日三个成员
+//     boost::gregorian::date d2 = boost::gregorian::date_from_tm(t);
+//     assert(date == d2);
+// }
+//日期长度？以天为单位的时长，度量时间长度的一个标量，可正可负，任何整数
+//基本的日期长度类date_duration,其类摘要：
+// class date_duration {
+// public:
+//     date_duration(long); //构造函数：“date_duration可以使用构造函数创建一个日期长度”
+//     date_duration(boost::date_time::special_values);
+//
+//     long days() const;  //成员访问函数，“days（）返回时长的天数”
+//     bool is_special() const; //“is_special（）和is_negative（）可以判断date_duration对象是否为特殊值”
+//     bool is_negative() const;
+//
+//     bool operator==(const date_duration&) const;    //操作符函数，“date_duration支持全序比较操作（==、！=、＜、＜=等）
+//                                                      ，也支持完全的加减法和递增递减操作”
+//     static date_duration unit();    //时长单位，“unit（）返回时长的最小单位，即date_duration（1）”
+//
+// “此外date_duration还支持除法运算，可以除以一个整数，但不能除以另一个date_duration，
+// 它不支持其他的数学运算，如乘法、取模、取余等”
+// };
 
-    //date_from_tm(datetm)：将tm转换到date，只使用年月日三个成员
-    boost::gregorian::date d2 = boost::gregorian::date_from_tm(t);
-    assert(date == d2);
+// int main() {
+//     boost::gregorian::days dd1(10),dd2(-200),dd3(225);
+//     assert(dd1>dd2 && dd1<dd3);
+//     assert(dd1+dd2 == boost::gregorian::days(-190));
+//     assert((dd1+dd3).days() == 235);
+//     assert(dd1/5==boost::gregorian::days(2));
+// }
+//
+
+//为了方便计算时间长度，date_time库还提供了months、years、weeks3个时长类，分别用来表示月、年和星期
+
+// int main() {
+//     boost::gregorian::weeks w(3); //三个星期
+//     assert(w.days() == 21);
+//
+//     boost::gregorian::months m(5); //5个月
+//     boost::gregorian::years y(2); //2年
+//
+//     boost::gregorian::months m2 = y+m; //两年零五个月
+//     assert(m2.number_of_months() == 29);
+//     assert((y*2).number_of_years() == 4);
+// }
+
+//日期计算
+//date支持加减运算，但是两个date对象的加法操作是无意义的（编译错误的形式告知），date主要用来与时长概率进行运算
+//int main() {
+    // boost::gregorian::date d1(2000,1,1),d2(2017,11,18);
+    // std::cout<<d1 - d2 << std::endl;
+    // assert(d1 + (d2 - d1) == d2);
+    //
+    // d1 += boost::gregorian::days(10); //2000-1-11
+    // assert(d1.day() == 11);
+    //
+    // d1 += boost::gregorian::months(2); //2000-3-11
+    // assert(d1.month() == 3 && d1.day() == 11);
+    //
+    // d1 -= boost::gregorian::weeks(1); //2000-3-4
+    // assert(d1.day() == 4);
+    //
+    // d2 -= boost::gregorian::years(10);
+    // assert(d2.year() == d1.year() + 7);
+
+    // boost::gregorian::date d1(2017,1,1);
+    // boost::gregorian::date d2 = d1 + boost::gregorian::days(boost::date_time::pos_infin);
+    // assert(d2.is_pos_infinity());
+    //
+    // d2 = d1 + boost::gregorian::days(boost::date_time::not_a_date_time);
+    // assert(d2.is_not_a_date());
+    //
+    // d2 = boost::gregorian::date(boost::date_time::neg_infin);
+    // boost::gregorian::days dd = d1 - d2;
+    // assert(dd.is_special() && !dd.is_negative());
+
+    // boost::gregorian::date d(2017,3,30);
+    // d -= boost::gregorian::months(1); //2017-2-28,变为2月月末，同时30的日期信息丢失
+    // d -= boost::gregorian::months(1); //2017-1-31
+    // d += boost::gregorian::months(2); //2017-3-31
+    // std::cout << d << std::endl;
+    // assert(d.day() == 31); //与原来的日期不一致
+//}
+
+int main() {
+    boost::gregorian::date_period dp1(boost::gregorian::date(2017,1,1),boost::gregorian::days(20));
+
+    assert(!dp1.is_null());
+    assert(dp1.length().days() == 20);
+    assert(dp1.begin().day() == 1);
+    assert(dp1.last().day() == 20);
+    assert(dp1.end().day() == 21);
+
+    std::cout << dp1 << std::endl;
+
+    //shift()将日期区间平移n天，而长度不变
+    dp1.shift(boost::gregorian::days(3));
+    std::cout << dp1 << std::endl;
+
+    //expand（）将日期向两端延伸n天，相当于区间长度增加2n天
+    dp1.expand(boost::gregorian::days(3));
+    std::cout << dp1 << std::endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
