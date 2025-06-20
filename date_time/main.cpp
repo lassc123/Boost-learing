@@ -271,11 +271,76 @@ using namespace std;
 
 
 //日期迭代器
-int main() {
+//int main() {
+    // boost::gregorian::date date(2007,9,28);
+    // boost::gregorian::day_iterator d_iter(date);    //增减默认步长为1天
+    //
+    // assert(d_iter == date);
+    // ++d_iter;   //递增一天
+    // assert(d_iter == boost::gregorian::date(2007,9,29));
+    //
+    // boost::gregorian::year_iterator yer_iter(*d_iter,10); //将增减步长改为10年
+    // assert(yer_iter == (*d_iter));
+    // ++yer_iter;
+    // assert(yer_iter == boost::gregorian::date(2017,9,29));
+    //
+    // //需要注意的是，虽然day_iterator,week_iterator的名字叫迭代器，但它并不符合标准迭代器的定义，如果没有difference_type,
+    // //pointer,reference等内部类型定义，就不能使用std::advance()或operator+=来前进或者后退
+    // boost::gregorian::day_iterator d_iter2(boost::gregorian::day_clock::local_day()); //声明一个日期迭代器
+    // ++d_iter2;
+    //
+    // //d_iter2 += 5; //错误，编译失败
+    // //std::advance(d_iter2,5); //错误，编译失败
+//     typedef boost::gregorian::gregorian_calendar gre_cal; //typedef以简化代码书写
+    //
+    // std::cout << "Y2017 is" << (gre_cal::is_leap_year(2017)?"":" not") << " a leap year." << std::endl;
+    // assert(gre_cal::end_of_month_day(2017,2) == 28);
 
-}
+    // boost::gregorian::date d(2017,1,23); //实际运行时，可以从cin获得日期
+    //
+    // boost::gregorian::date d_start(d.year(),d.month(),1); //当月第一天
+    // boost::gregorian::date d_end = d.end_of_month();    //当月最后一天
+    // for (boost::gregorian::day_iterator d_iter(d_start);d_iter != d_end; ++d_iter) {
+    //     std::cout << d_iter->day_of_week() << std::endl;
+    // }
+//     boost::gregorian::date d(2017,1,23);    //声明日期对象
+//     boost::gregorian::date d18years = d + boost::gregorian::years(18); //加上18年
+//     std::cout << d18years << " is " << d18years.day_of_week() << std::endl;
+//
+//     int count = 0;  //星期天的计数器
+//     for (boost::gregorian::day_iterator d_iter(boost::gregorian::date(d18years.year(),1,1));d_iter != d18years.end_of_month(); ++d_iter) {
+//         if (d_iter->day_of_week() == boost::date_time::Sunday) {   //如果为星期天则计数增加
+//             count++;
+//         }
+//     }
+//     std::cout << "total "<< count << " Sundays."<< std::endl;
+//
+//     count = 0;
+//     for (boost::gregorian::month_iterator m_iter(boost::gregorian::date(d18years.year(),1,1));m_iter < boost::gregorian::date(d18years.year()+1,1,1);++m_iter) {
+//         count += m_iter->end_of_month().day(); //累加每月的天数
+//     }
+//     std::cout << "total "<< count << " days of year." << std::endl;
+//
+//     std::cout << (gre_cal::is_leap_year(d18years.year())?366:365) << std::endl;
+// }
 
-
+//计算信用卡的免息期
+class creadit_card {
+public:
+    string bank_name;   //银行名
+    int bill_day_no;    //记账日
+    creadit_card(const char* bname, int no):
+    bank_name(bname),
+    bill_day_no(no)
+    {}
+    int calc_free_days(boost::gregorian::date consume_day = boost::gregorian::day_clock::local_day()) const {
+        boost::gregorian::date bill_day(consume_day.year(), consume_day.month(), bill_day_no); //得到记账日
+        if (consume_day>bill_day) { //判断消费日是否已经过了记账日
+            bill_day += boost::gregorian::months(1);    //如果过了，则是下一个月的记账日
+        }
+        return (bill_day - consume_day).days() + 20;    //计算免息期
+    }
+};
 
 
 
