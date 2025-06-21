@@ -325,23 +325,32 @@ using namespace std;
 // }
 
 //计算信用卡的免息期
-class creadit_card {
-public:
-    string bank_name;   //银行名
-    int bill_day_no;    //记账日
-    creadit_card(const char* bname, int no):
-    bank_name(bname),
-    bill_day_no(no)
-    {}
-    int calc_free_days(boost::gregorian::date consume_day = boost::gregorian::day_clock::local_day()) const {
-        boost::gregorian::date bill_day(consume_day.year(), consume_day.month(), bill_day_no); //得到记账日
-        if (consume_day>bill_day) { //判断消费日是否已经过了记账日
-            bill_day += boost::gregorian::months(1);    //如果过了，则是下一个月的记账日
-        }
-        return (bill_day - consume_day).days() + 20;    //计算免息期
-    }
-};
+// class creadit_card {
+//     friend bool operator<(const creadit_card& l,const creadit_card& r) {
+//         return l.calc_free_days() < r.calc_free_days();
+//     }
+// public:
+//     string bank_name;   //银行名
+//     int bill_day_no;    //记账日
+//     creadit_card(const char* bname, int no):
+//     bank_name(bname),
+//     bill_day_no(no)
+//     {}
+//     int calc_free_days(boost::gregorian::date consume_day = boost::gregorian::day_clock::local_day()) const {
+//         boost::gregorian::date bill_day(consume_day.year(), consume_day.month(), bill_day_no); //得到记账日
+//         if (consume_day>bill_day) { //判断消费日是否已经过了记账日
+//             bill_day += boost::gregorian::months(1);    //如果过了，则是下一个月的记账日
+//         }
+//         return (bill_day - consume_day).days() + 20;    //计算免息期
+//     }
+// };
+//
+// int main() {
+//     creadit_card card1("A bank", 25); //A银行的记账日为每月的25日
+//     creadit_card card2("B bank", 12); //B银行的记账日为每月的12日
+//     creadit_card tmp = std::max(card1, card2);
+//     std::cout << " You should use " << tmp.bank_name << ", free days = " << tmp.calc_free_days() << std::endl;
+// }
 
-
-
-
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
